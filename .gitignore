@@ -1,0 +1,7 @@
+# Project exclude paths
+/.gradle/
+/Car Sharing/task/build/
+/Car Sharing/task/out/
+/Car Sharing/task/out/production/classes/
+/Topics/Streams of primitives/The average salary/out/
+/Topics/Streams of primitives/The average salary/out/production/classes/

@@ -1,0 +1,33 @@
+2022-05-14 16:24:21 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE   COMPANY  ID[*] INTEGER,  NAME VARCHAR, "; SQL statement:
+CREATE TABLE   COMPANY  ID INTEGER,  NAME VARCHAR,  [42000-200]
+2022-05-14 16:24:21 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE   COMPANY  ID[*] INTEGER,  NAME VARCHAR, "; SQL statement:
+CREATE TABLE   COMPANY  ID INTEGER,  NAME VARCHAR,  [42000-200]
+2022-05-14 16:28:19 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE   COMPANY  ID[*] INT,  NAME VARCHAR, "; SQL statement:
+CREATE TABLE   COMPANY  ID INT,  NAME VARCHAR,  [42000-200]
+2022-05-14 16:28:19 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE   COMPANY  ID[*] INT,  NAME VARCHAR, "; SQL statement:
+CREATE TABLE   COMPANY  ID INT,  NAME VARCHAR,  [42000-200]
+2022-05-14 16:28:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE   COMPANY  ID[*] INT,  NAME VARCHAR, "; SQL statement:
+CREATE TABLE   COMPANY  ID INT,  NAME VARCHAR,  [42000-200]
+2022-05-14 16:28:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE   COMPANY  ID[*] INT,  NAME VARCHAR, "; SQL statement:
+CREATE TABLE   COMPANY  ID INT,  NAME VARCHAR,  [42000-200]
+2022-05-14 16:30:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE COMPANY  ID[*] INT,  NAME VARCHAR, "; SQL statement:
+CREATE TABLE COMPANY  ID INT,  NAME VARCHAR,  [42000-200]
+2022-05-14 16:30:07 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE COMPANY  ID[*] INT,  NAME VARCHAR, "; SQL statement:
+CREATE TABLE COMPANY  ID INT,  NAME VARCHAR,  [42000-200]
+2022-05-14 16:30:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE COMPANY  ID[*] INT,  NAME VARCHAR(255), "; SQL statement:
+CREATE TABLE COMPANY  ID INT,  NAME VARCHAR(255),  [42000-200]
+2022-05-14 16:30:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "CREATE TABLE COMPANY  ID[*] INT,  NAME VARCHAR(255), "; SQL statement:
+CREATE TABLE COMPANY  ID INT,  NAME VARCHAR(255),  [42000-200]
+2022-05-14 16:34:28 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "COMPANY" already exists; SQL statement:
+CREATE TABLE COMPANY (ID INT,  NAME VARCHAR(255)) [42101-200]
