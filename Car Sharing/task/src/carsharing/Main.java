@@ -1,69 +1,93 @@
 package carsharing;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import org.h2.jdbcx.JdbcDataSource;
+
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Main {
 
-    // JDBC driver name and database URL
-    static final String JDBC_DRIVER = "org.h2.Driver";
-
-
-    //  Database credentials
-    static final String USER = "";
-    static final String PASS = "";
+    static CompanyDao companyAccess;
+    static JdbcDataSource dataSource;
+    static Scanner scanner;
 
     public static void main(String[] args) {
 
-        String DB_URL = "jdbc:h2:./src/carsharing/db/";
-
+        // Create database connection
+        String fileName = "defaultName";
         if (Arrays.asList(args).contains("-databaseFileName")) {
-            String filename = args[Arrays.asList(args).indexOf("-databaseFileName") + 1];
-            DB_URL = DB_URL.concat(filename);
-        } else {
-            DB_URL = DB_URL.concat("defaultName");
+            fileName = args[Arrays.asList(args).indexOf("-databaseFileName") + 1];
         }
+        dataSource = Connect.createConnection(fileName);
+        companyAccess = new CompanyDaoImpl(dataSource);
+        scanner = new Scanner(System.in);
 
-        Connection conn = null;
-        Statement stmt = null;
-        try {
-            // Register JDBC driver
-            Class.forName(JDBC_DRIVER);
+        loginMenu();
+    }
 
-            //Open a connection
-            conn = DriverManager.getConnection(DB_URL);
-            conn.setAutoCommit(true);
 
-            //Execute a query
-            stmt = conn.createStatement();
-            String sql =
-                    "CREATE TABLE COMPANY " +
-                            "(ID INT, " +
-                            " NAME VARCHAR(255))";
-            stmt.executeUpdate(sql);
-
-            //Clean up environment
-            stmt.close();
-            conn.close();
-        } catch (SQLException se) {
-            se.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            //finally block used to close resources
-            try{
-                if(stmt!=null) stmt.close();
-            } catch(SQLException se2) {
-            } // nothing we can do
-            try {
-                if(conn!=null) conn.close();
-            } catch(SQLException se){
-                se.printStackTrace();
-            } //end finally try
+    private static void loginMenu () {
+        boolean continueLoginLoop = true;
+        while (continueLoginLoop) {
+            printLoginOptions();
+            String input = scanner.nextLine();
+            switch (input) {
+                case "1":                                                       //1. Log in as a manager
+                    mainMenu();
+                    break;
+                case "0":                                                       //0. Exit
+                    continueLoginLoop = false;
+                    break;
+            }
         }
+    }
 
+    private static void mainMenu() {
+        boolean continueMenuLoop = true;
+        while (continueMenuLoop) {
+            printMainOptions();
+            String input = scanner.nextLine();
+            switch (input) {
+                case "1":                                                       //1. Company list
+                    if (companyAccess.getAllCompanies() == null || companyAccess.getAllCompanies().isEmpty()) {
+                        System.out.println("The company list is empty!");
+                    } else {
+                        System.out.println();
+                        System.out.println("Company list:");
+                        int count = 1;
+                        for (Company c : companyAccess.getAllCompanies()) {
+                            System.out.println(count + ". " + c.getName());
+                            count++;
+                        }
+                    }
+                    break;
+                case "2":                                                       //2. Create a company
+                    System.out.println("Enter the company name:");
+                    String companyName = scanner.nextLine();
+                    companyAccess.createCompany(companyName);
+                    System.out.println("The company was created!");
+                    break;
+                case "0":                                                       //0. Back
+                    continueMenuLoop = false;
+                    break;
+            }
+        }
+        loginMenu();
+    }
+
+    private static void printLoginOptions() {
+        System.out.println();
+        System.out.println("1. Log in as a manager");
+        System.out.println("0. Exit");
+        System.out.println();
+    }
+
+    private static void printMainOptions() {
+        System.out.println();
+        System.out.println("1. Company list");
+        System.out.println("2. Create a company");
+        System.out.println("0. Back");
+        System.out.println();
     }
 }
+

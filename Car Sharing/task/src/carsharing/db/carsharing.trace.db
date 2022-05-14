@@ -31,3 +31,14 @@ CREATE TABLE COMPANY  ID INT,  NAME VARCHAR(255),  [42000-200]
 2022-05-14 16:34:28 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "COMPANY" already exists; SQL statement:
 CREATE TABLE COMPANY (ID INT,  NAME VARCHAR(255)) [42101-200]
+2022-05-14 20:11:50 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "COMPANY" already exists; SQL statement:
+CREATE TABLE COMPANY (ID INT PRIMARY KEY NOT NULL,  NAME VARCHAR(255) UNIQUE NOT NULL) [42101-200]
+2022-05-14 20:52:53 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-200]
+2022-05-14 20:53:30 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-200]
+2022-05-14 21:19:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-200]
+2022-05-14 21:19:51 jdbc[8]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-200]
