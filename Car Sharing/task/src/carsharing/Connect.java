@@ -8,6 +8,8 @@ import java.sql.Statement;
 
 public class Connect {
 
+    //TODO Split table creation into it's own method. Maybe rename class to connection manager?
+
     private static JdbcDataSource sharedDataSource;
 
     public static JdbcDataSource createConnection(String fileName) {
