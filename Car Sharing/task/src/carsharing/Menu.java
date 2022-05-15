@@ -13,8 +13,8 @@ public final class Menu {
     public static void startMenuSequence() throws SQLException {
 
         scanner = new Scanner(System.in);
-        companyDao = new CompanyDao();
-        carDao = new CarDao();
+        companyDao = new CompanyDaoJdbc();
+        carDao = new CarDaoJdbc();
         loginMenu();
     }
 
@@ -120,7 +120,7 @@ public final class Menu {
 
     private static void companyMenuListCars(Company aCompany) {
         List<Car> cars;
-        if (carDao.getCompanyCars(aCompany).isEmpty()) {
+        if (companyDao.getCompanyCars(aCompany).isEmpty()) {
             System.out.println("The car list is empty!");
         } else {
             System.out.println();
