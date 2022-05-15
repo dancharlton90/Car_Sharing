@@ -1,14 +1,11 @@
 package carsharing;
 
-import org.h2.jdbcx.JdbcDataSource;
-
+import java.sql.SQLException;
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class Main {
 
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 
         // Create database connection...
         String fileName = "defaultName";
@@ -16,11 +13,14 @@ public class Main {
             fileName = args[Arrays.asList(args).indexOf("-databaseFileName") + 1];
         }
 
-        // Create initial connection and get DataSource
-        JdbcDataSource dataSource = Connect.createConnection(fileName);
-        CompanyDao companyAccess = new CompanyDaoImpl(dataSource);
+        // Create initial connection
+        DatabaseManager databaseManager = new DatabaseManager();
+        databaseManager.createConnection(fileName);
 
-        Menu.startMenuSequence(companyAccess);
+        databaseManager.createCompanyTable();
+        databaseManager.createCarTable();
+
+        Menu.startMenuSequence();
     }
 }
 

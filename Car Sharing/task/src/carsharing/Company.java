@@ -26,7 +26,4 @@ public class Company {
         return Id;
     }
 
-    public void setId(int id) {
-        Id = id;
-    }
 }
