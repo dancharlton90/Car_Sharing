@@ -20,6 +20,27 @@ public class CompanyDaoJdbc implements CompanyDao<Company> {
     }
 
     @Override
+    public Optional<Company> getById(int anId) {
+        Optional<Company> company = Optional.empty();
+        try (Statement statement = conn.createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM company " +
+                    " WHERE id = " + anId))
+            {
+                while (resultSet.next()) {
+                    int id = resultSet.getInt("id");
+                    String name = resultSet.getString("name");
+                    company = Optional.of(new Company(name, id));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return company;
+    }
+
+    @Override
     public List<Company> getAll() {
         listOfCompanies = new ArrayList<>();
         try (Statement statement = conn.createStatement()) {
@@ -49,8 +70,32 @@ public class CompanyDaoJdbc implements CompanyDao<Company> {
             while (resultSet.next()) {
                 int id = resultSet.getInt("ID");
                 String name = resultSet.getString("NAME");
-                int companyId = resultSet.getInt("COMPANY_ID");
-                listOfCars.add(new Car(id, name, companyId));
+                Optional<Company> company = new CompanyDaoJdbc().getById(resultSet.getInt("COMPANY_ID"));
+                listOfCars.add(new Car(id, name, company.orElse(null)));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listOfCars;
+    }
+
+    @Override
+    public List<Car> getAllAvailableCars(Company aCompany) {
+        List<Car> listOfCars = new ArrayList<>();
+        String sql =
+                "SELECT car.id, car.name, car.company_id " +
+                        " FROM car LEFT JOIN customer " +
+                        " ON car.id = customer.rented_car_id " +
+                        " WHERE customer.name IS NULL AND car.company_id = ?";
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setInt(1, aCompany.getId());
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("ID");
+                String name = resultSet.getString("NAME");
+                Optional<Company> company = new CompanyDaoJdbc().getById(resultSet.getInt("COMPANY_ID"));
+                listOfCars.add(new Car(id, name, company.orElse(null)));
             }
 
         } catch (SQLException e) {

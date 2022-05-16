@@ -16,9 +16,9 @@ public class DatabaseManager {
         // JDBC driver name and database URL
         final String JDBC_DRIVER = "org.h2.Driver";
 
-        //  Database credentials
+/*        //  Database credentials
         String USER;
-        String PASS;
+        String PASS;*/
 
         final String DB_URL = "jdbc:h2:./src/carsharing/db/";
 
@@ -34,24 +34,9 @@ public class DatabaseManager {
             //Open a connection
             sharedConnection = dataSource.getConnection();
             sharedConnection.setAutoCommit(true);
-
-            //Execute a query
-/*            stmt = sharedConnection.createStatement();
-            String sql =
-                    "CREATE TABLE IF NOT EXISTS COMPANY " +
-                            "(ID INT PRIMARY KEY AUTO_INCREMENT, " +
-                            " NAME VARCHAR(255) UNIQUE NOT NULL)";
-            stmt.executeUpdate(sql);*/
-
-        } catch (SQLException se) {
+        } catch (Exception se) {
             se.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-    }
-
-    public void createDataBase() {
-
     }
 
     public void createCarTable() {
@@ -72,11 +57,30 @@ public class DatabaseManager {
         }
     }
 
+    public void createCustomerTable() {
+        String sql =
+                "CREATE TABLE IF NOT EXISTS customer " +
+                        "(id INT PRIMARY KEY AUTO_INCREMENT, " +
+                        " name VARCHAR(255) UNIQUE NOT NULL, " +
+                        " rented_car_id INT, " +
+                        " FOREIGN KEY (rented_car_id) REFERENCES car(id) " +
+                        ");";
+
+        try {
+            PreparedStatement statement = sharedConnection.prepareStatement(sql);
+            System.out.println(sharedConnection.toString());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void createCompanyTable() {
         String sql =
-                "CREATE TABLE IF NOT EXISTS COMPANY " +
+                "CREATE TABLE IF NOT EXISTS company " +
                         "(ID INT PRIMARY KEY AUTO_INCREMENT, " +
-                        " NAME VARCHAR(255) UNIQUE NOT NULL)";
+                        " NAME VARCHAR(255) UNIQUE NOT NULL " +
+                        ");";
         try {
             Statement statement = sharedConnection.createStatement();
             statement.executeUpdate(sql);

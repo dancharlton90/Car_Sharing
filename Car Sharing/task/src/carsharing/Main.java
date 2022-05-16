@@ -19,6 +19,7 @@ public class Main {
 
         databaseManager.createCompanyTable();
         databaseManager.createCarTable();
+        databaseManager.createCustomerTable();
 
         Menu.startMenuSequence();
     }
